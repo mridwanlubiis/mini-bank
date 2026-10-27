@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form Registrasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<!-- ===================== HTML ===================== -->
+<body>
+<div class="shell">
+  <div class="card">
+
+    <aside class="rules">
+      <h2>Aturan pengisian</h2>
+      <p class="lead">Semua kolom wajib diisi.</p>
+      <dl>
+        <dt>Nama</dt>
+        <dd>3-50 karakter, hanya huruf dan spasi</dd>
+        <dt>Email</dt>
+        <dd>Format valid (ada @ dan domain), maksimal 100 karakter, belum pernah terdaftar</dd>
+        <dt>Nomor HP</dt>
+        <dd>Hanya angka, diawali 08 atau +62, 10-13 digit (tanda + tidak dihitung)</dd>
+        <dt>Password</dt>
+        <dd>8-20 karakter, minimal 1 huruf besar dan 1 angka</dd>
+        <dt>Konfirmasi password</dt>
+        <dd>Harus sama persis dengan password</dd>
+      </dl>
+    </aside>
+
+    <main class="main">
+
+      <!-- Form -->
+      <section id="form-view">
+        <h1>Buat akun</h1>
+        <p class="sub">Isi data di bawah ini untuk mendaftar.</p>
+
+        <div id="summary" class="summary" role="alert" hidden></div>
+
+        <form id="register-form" novalidate>
+
+          <div class="field">
+            <label for="nama">Nama lengkap</label>
+            <div class="control">
+              <input id="nama" name="nama" type="text" autocomplete="name" aria-describedby="nama-error">
+            </div>
+            <p id="nama-error" class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="control">
+              <input id="email" name="email" type="text" inputmode="email" autocomplete="email" aria-describedby="email-error">
+            </div>
+            <p id="email-error" class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="hp">Nomor HP</label>
+            <div class="control">
+              <input id="hp" name="hp" type="tel" autocomplete="tel" aria-describedby="hp-error">
+            </div>
+            <p id="hp-error" class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="control">
+              <input id="password" name="password" type="password" class="has-toggle" autocomplete="new-password" aria-describedby="password-error password-rules">
+              <button type="button" class="toggle" data-target="password" aria-pressed="false">Tampilkan</button>
+            </div>
+            <ul id="password-rules" class="checklist">
+              <li data-rule="length">8-20 karakter</li>
+              <li data-rule="upper">Minimal 1 huruf besar</li>
+              <li data-rule="digit">Minimal 1 angka</li>
+            </ul>
+            <p id="password-error" class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="konfirmasi">Konfirmasi password</label>
+            <div class="control">
+              <input id="konfirmasi" name="konfirmasi" type="password" class="has-toggle" autocomplete="new-password" aria-describedby="konfirmasi-error">
+              <button type="button" class="toggle" data-target="konfirmasi" aria-pressed="false">Tampilkan</button>
+            </div>
+            <p id="konfirmasi-error" class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="actions">
+            <button type="submit" id="btn-submit" class="btn btn-primary">Daftar</button>
+            <button type="button" id="btn-reset" class="btn btn-ghost">Kosongkan form</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Tampilan sukses -->
+      <section id="success-view" class="success" hidden>
+        <h1>Registrasi berhasil</h1>
+        <p class="sub">Akun sudah dibuat dengan data berikut.</p>
+        <div class="detail">
+          <p><strong>Nama:</strong> <span id="out-nama"></span></p>
+          <p><strong>Email:</strong> <span id="out-email"></span></p>
+          <p><strong>Nomor HP:</strong> <span id="out-hp"></span></p>
+        </div>
+        <button type="button" id="btn-again" class="btn btn-primary">Daftar akun lain</button>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Data tersimpan (membantu saat testing email duplikat) -->
+  <details class="data" id="data-panel">
+    <summary id="data-title">Data tersimpan (0)</summary>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Nama</th><th>Email</th><th>Nomor HP</th><th>Waktu daftar</th></tr>
+        </thead>
+        <tbody id="data-body"></tbody>
+      </table>
+    </div>
+    <button type="button" id="btn-clear" class="btn btn-ghost">Hapus semua data</button>
+  </details>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
