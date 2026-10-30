@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Bank - Transfer Saldo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section class="saldo">
+      <p class="saldo-label">Saldo rekening 0987654321 (Nasabah Demo)</p>
+      <p class="saldo-nilai" id="saldo">Rp 0</p>
+      <p class="saldo-limit" id="limit"></p>
+    </section>
+
+    <section class="panel">
+      <h1>Transfer saldo</h1>
+      <form id="form-transfer" novalidate>
+        <label for="tujuan">Rekening tujuan</label>
+        <input id="tujuan" type="text" inputmode="numeric" placeholder="10 digit nomor rekening" autocomplete="off">
+        <p class="error" id="err-tujuan"></p>
+
+        <label for="nominal">Nominal (Rp)</label>
+        <input id="nominal" type="text" inputmode="numeric" placeholder="Contoh: 50000" autocomplete="off">
+        <p class="error" id="err-nominal"></p>
+
+        <label for="catatan">Catatan (opsional)</label>
+        <input id="catatan" type="text" placeholder="Maksimal 50 karakter" autocomplete="off">
+        <p class="error" id="err-catatan"></p>
+
+        <label for="pin">PIN transaksi</label>
+        <input id="pin" type="password" inputmode="numeric" placeholder="6 digit PIN" autocomplete="off">
+        <p class="error" id="err-pin"></p>
+
+        <p class="info">Biaya admin Rp 2.500 per transfer, dipotong dari saldo.</p>
+        <button type="submit" id="btn-kirim">Kirim transfer</button>
+        <p class="hasil" id="hasil" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Top up saldo</h2>
+      <form id="form-topup" novalidate>
+        <label for="topup-nominal">Nominal top up (Rp)</label>
+        <input id="topup-nominal" type="text" inputmode="numeric" placeholder="Contoh: 100000" autocomplete="off">
+        <p class="error" id="err-topup"></p>
+        <button type="submit" id="btn-topup">Top up</button>
+        <p class="hasil" id="hasil-topup" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="baris">
+        <h2>Riwayat transaksi</h2>
+        <button type="button" class="sekunder" id="btn-reset">Reset data</button>
+      </div>
+
+      <div class="filter">
+        <input id="cari" type="text" placeholder="Cari nama, rekening, atau catatan" aria-label="Cari riwayat">
+        <select id="jenis" aria-label="Jenis transaksi">
+          <option value="semua">Semua jenis</option>
+          <option value="transfer">Transfer</option>
+          <option value="topup">Top up</option>
+        </select>
+        <label class="kecil">Dari <input id="dari" type="date"></label>
+        <label class="kecil">Sampai <input id="sampai" type="date"></label>
+      </div>
+      <p class="error" id="err-filter"></p>
+
+      <ul id="riwayat" class="riwayat"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Aturan (dasar test case)</h2>
+      <ul class="aturan">
+        <li>Saldo awal Rp 1.000.000. Rekening Anda 0987654321.</li>
+        <li>Rekening tujuan: 10 digit angka dan terdaftar, yaitu 1234567890 (Budi Santoso), 2345678901 (Sari Wulandari), 3456789012 (Andi Pratama). Tidak boleh ke rekening sendiri.</li>
+        <li>Nominal transfer: bilangan bulat, minimal Rp 10.000, maksimal Rp 5.000.000 per transaksi.</li>
+        <li>Biaya admin Rp 2.500 per transfer. Saldo harus cukup untuk nominal ditambah biaya admin.</li>
+        <li>Limit transfer harian Rp 3.000.000 (total nominal, tidak termasuk biaya admin), dihitung per tanggal hari ini.</li>
+        <li>PIN transaksi 6 digit angka. PIN yang benar: 123456. Salah 3 kali berturut-turut mengunci transfer. Percobaan salah kembali ke 0 setelah transfer berhasil. Kunci hanya dibuka lewat Reset data.</li>
+        <li>Top up: bilangan bulat, minimal Rp 10.000, maksimal Rp 5.000.000 per top up.</li>
+        <li>Catatan boleh kosong, maksimal 50 karakter.</li>
+        <li>Klik ganda pada tombol kirim hanya diproses satu kali.</li>
+        <li>Riwayat bisa difilter berdasarkan kata kunci, jenis, dan rentang tanggal. Tanggal awal tidak boleh setelah tanggal akhir.</li>
+        <li>Saldo, riwayat, dan status PIN tersimpan setelah halaman di-refresh.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
